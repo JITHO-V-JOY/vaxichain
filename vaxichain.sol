@@ -18,7 +18,7 @@ contract VaxiChain{
         string location;
     }
     
-    struct vaccine{
+    struct Vaccine{
         uint manufacturID;
         uint distribututorID;
         uint vaccineceterID;
