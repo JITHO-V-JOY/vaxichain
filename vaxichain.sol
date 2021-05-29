@@ -7,6 +7,7 @@ contract VaxiChain{
     uint256 public requestCount = 0;
     
     struct Manufacturer{
+        string licenceNO;
         string name;
         string address;
         string phone;
@@ -14,6 +15,7 @@ contract VaxiChain{
     }
     struct Distributor{
         string name;
+        string licenceNO;
         string address;
         string phone;
         string location;
@@ -21,6 +23,7 @@ contract VaxiChain{
     }
     struct VaccineCenter{
         string name;
+        string licenceNO;
         string address;
         string phone;
         string location;
