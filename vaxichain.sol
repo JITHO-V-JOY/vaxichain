@@ -11,14 +11,14 @@ contract VaxiChain{
     uint256 public manufacturerCount = 0;
     uint256 public distributerCount = 0;
     uint256 public vaccineCenterCount = 0;
+    uint256 public customerCount = 0;
     
     struct Manufacturer{
         string licenceNO;
         string name;
-        
         string location;
+       
     }
-    
     struct Vaccine{
         uint manufacturID;
         uint distribututorID;
@@ -30,7 +30,7 @@ contract VaxiChain{
         string name;
         string location;
         
-           }
+   }
     struct VaccineCenter{
         string name;
         string licenceNO;
@@ -38,14 +38,12 @@ contract VaxiChain{
         string phone;
         string location;
 
-    }
-    
+   }
     struct Doctor{
         string name;
         string licenceNO;
         string phone;
-    }
-    
+   }    
     struct Customer{
         string name;
         uint doctorID;
@@ -59,11 +57,21 @@ contract VaxiChain{
         distributerCount++;
         distributer[distributerCount] = Distributer(licenceNo, name, location);
     }
+    
     function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
         manufacturerCount++;
         manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
-  }
+   }
+  
     function AddVaccineCenter(string memory licenceNo, string memory name, string memory address, string memory phone  string memory location) public{
         vaccineCenterCount++;
         vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name,address, phone, location);
-        }
+   }
+        
+    function AddCustomer(string memory name, string memory  AdharID, string memory doctorID, string memory vaccinated_date  string memory vaccine_center) public{
+        customerCount++;
+        customer[customer] = Customer(name,doctorID,  AdharID, vaccinated_date,vaccine_center);
+   }   
+        
+}
+
