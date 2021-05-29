@@ -13,6 +13,13 @@ contract VaxiChain{
         string phone;
         string location;
     }
+    
+    struct vaccine{
+        uint manufacturID;
+        uint distribututorID;
+        uint vaccineceterID;
+        
+   
     struct Distributor{
         string name;
         string licenceNO;
@@ -85,3 +92,4 @@ contract VaxiChain{
         emit Verified(_id, _money, 1);
         }
   }
+  https://github.com/DrugTraceability/VaccineDelivery/blob/main/Code
