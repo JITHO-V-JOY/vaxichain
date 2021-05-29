@@ -1,6 +1,9 @@
 pragma solidity ^0.6.2;
 contract VaxiChain{
+    
     mapping(uint => Manufacturer) public manufacture;
+    mapping(uint => doctor) public doctor;
+    mapping(uint => vaccine) public vaccine;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
     mapping(uint => Customer) public customer;
@@ -19,7 +22,7 @@ contract VaxiChain{
         uint distribututorID;
         uint vaccineceterID;
         
-   
+   }
     struct Distributor{
         string name;
         string licenceNO;
@@ -45,9 +48,8 @@ contract VaxiChain{
     
     struct Customer{
         string name;
-        string address;
-        string phone;
-        string location;
+        uint doctorID;
+        string AdharID;
         bool vaccinated;
         string vaccinated_date;
         string vaccine_center;
@@ -92,4 +94,4 @@ contract VaxiChain{
         emit Verified(_id, _money, 1);
         }
   }
-  https://github.com/DrugTraceability/VaccineDelivery/blob/main/Code
+
