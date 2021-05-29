@@ -7,7 +7,8 @@ contract VaxiChain{
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
     mapping(uint => Customer) public customer;
-    uint256 public requestCount = 0;
+    
+    uint256 public manufacturerCount = 0;
     
     struct Manufacturer{
         string licenceNO;
@@ -55,37 +56,9 @@ contract VaxiChain{
         string vaccine_center;
     }
     
-    event RequestCreated(
-        address payable author,
-        string requestHash,
-        uint256 amount,
-        bool fullfilled
-    );
-
-  
-
-    function makeRequest(string memory _rHash, uint256 _amount) public{
-        requestCount++;
-        request[requestCount] = Request(msg.sender, _rHash, _amount, false);
-        verify[requestCount] = Verification(requestCount, 0, 0);
-        emit RequestCreated(msg.sender, _rHash, _amount, false);
+    function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
+        manufacturerCount++;
+        manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
     }
-
-
-
-    function sendMoney(uint _id, uint256 _money )public{
-        verify[_id].collectedAmount += _money;
-        verify[_id].valid += 1;
-        uint256 amt = request[_id].amount - verify[_id].collectedAmount;
-        if(amt == 0){
-            request[_id].fullfilled = true;
-        }
-        else if(amt < 0){
-            request[_id].amount = 0;
-            request[_id].fullfilled = true;
-
-        }
-        emit Verified(_id, _money, 1);
-        }
   }
 
