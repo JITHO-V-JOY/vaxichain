@@ -10,7 +10,8 @@ contract VaxiChain{
     
     uint256 public manufacturerCount = 0;
     uint256 public distributerCount = 0;
-    uint256 public VaccineCenter = 0;
+    uint256 public vaccineCenterCount = 0;
+    
     struct Manufacturer{
         string licenceNO;
         string name;
@@ -63,6 +64,6 @@ contract VaxiChain{
         manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
   }
     function AddVaccineCenter(string memory licenceNo, string memory name, string memory address, string memory phone  string memory location) public{
-        VaccineCenterCount++;
+        vaccineCenterCount++;
         vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name,address, phone, location);
         }
