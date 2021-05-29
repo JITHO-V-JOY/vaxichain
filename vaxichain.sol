@@ -2,6 +2,7 @@ pragma solidity ^0.6.2;
 contract TrustChainVersion1{
     mapping(uint => Manufacturer) public manufacture;
     mapping(uint => Distributor) public distributor;
+    mapping(uint => VaccineCenter) public vaccineCenter;
     uint256 public requestCount = 0;
     
     struct Manufacturer{
@@ -11,6 +12,13 @@ contract TrustChainVersion1{
         string location;
     }
     struct Distributor{
+        string name;
+        string address;
+        string phone;
+        string location;
+
+    }
+    struct VaccineCenter{
         string name;
         string address;
         string phone;
