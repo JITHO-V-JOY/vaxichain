@@ -1,19 +1,20 @@
 pragma solidity ^0.6.2;
 contract TrustChainVersion1{
     mapping(uint => Manufacturer) public manufacture;
-    mapping(uint => Verification) public verify;
+    mapping(uint => Distributor) public distributor;
     uint256 public requestCount = 0;
     
     struct Manufacturer{
         string name;
         string address;
         string phone;
-        string location
+        string location;
     }
-    struct Verification{
-        uint id;
-        uint256 collectedAmount;
-        uint valid;
+    struct Distributor{
+        string name;
+        string address;
+        string phone;
+        string location;
 
     }
     event RequestCreated(
