@@ -2,8 +2,8 @@ pragma solidity ^0.6.2;
 contract VaxiChain{
     
     mapping(uint => Manufacturer) public manufacture;
-    mapping(uint => doctor) public doctor;
-    mapping(uint => vaccine) public vaccine;
+    mapping(uint => Doctor) public doctor;
+    mapping(uint => Vaccine) public vaccine;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
     mapping(uint => Customer) public customer;
@@ -44,7 +44,7 @@ contract VaxiChain{
         string name;
         string licenceNO;
         string phone;
-        
+    }
     
     struct Customer{
         string name;
@@ -62,13 +62,7 @@ contract VaxiChain{
         bool fullfilled
     );
 
-    event Verified(
-        uint id,
-        uint256 collectedAmount,
-        uint valid
-    );
-
-
+  
 
     function makeRequest(string memory _rHash, uint256 _amount) public{
         requestCount++;
