@@ -1,8 +1,9 @@
 pragma solidity ^0.6.2;
-contract TrustChainVersion1{
+contract VaxiChain{
     mapping(uint => Manufacturer) public manufacture;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
+    mapping(uint => Customer) public customer;
     uint256 public requestCount = 0;
     
     struct Manufacturer{
@@ -25,6 +26,16 @@ contract TrustChainVersion1{
         string location;
 
     }
+    struct Customer{
+        string name;
+        string address;
+        string phone;
+        string location;
+        bool vaccinated;
+        string vaccinated_date;
+        string vaccine_center;
+    }
+    
     event RequestCreated(
         address payable author,
         string requestHash,
