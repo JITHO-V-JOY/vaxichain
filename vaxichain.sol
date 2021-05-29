@@ -54,11 +54,11 @@ contract VaxiChain{
         string vaccine_center;
     }
     
-    function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
+    function AddDistributer(string memory licenceNo, string memory name, string memory location) public{
         distributerCount++;
-        distributer[distributerCount] = distributer(licenceNo, name, location);
+        distributer[distributerCount] = Distributer(licenceNo, name, location);
     }
-    function Adddistributer(string memory licenceNo, string memory name, string memory location) public{
+    function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
         manufacturerCount++;
         manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
   }
