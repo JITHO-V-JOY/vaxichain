@@ -29,6 +29,13 @@ contract VaxiChain{
         string location;
 
     }
+    
+    struct Doctor{
+        string name;
+        string licenceNO;
+        string phone;
+        
+    
     struct Customer{
         string name;
         string address;
