@@ -9,12 +9,12 @@ contract VaxiChain{
     mapping(uint => Customer) public customer;
     
     uint256 public manufacturerCount = 0;
+    uint256 public distributerCount = 0;
     
     struct Manufacturer{
         string licenceNO;
         string name;
-        string address;
-        string phone;
+        
         string location;
     }
     
@@ -25,13 +25,11 @@ contract VaxiChain{
         
    }
     struct Distributor{
-        string name;
         string licenceNO;
-        string address;
-        string phone;
+        string name;
         string location;
-
-    }
+        
+           }
     struct VaccineCenter{
         string name;
         string licenceNO;
@@ -57,8 +55,11 @@ contract VaxiChain{
     }
     
     function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
+        distributerCount++;
+        distributer[distributerCount] = distributer(licenceNo, name, location);
+    }
+    function Adddistributer(string memory licenceNo, string memory name, string memory location) public{
         manufacturerCount++;
         manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
-    }
   }
 
