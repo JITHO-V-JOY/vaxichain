@@ -1,25 +1,27 @@
 pragma solidity ^0.6.2;
 contract VaxiChain{
     
-    mapping(uint => Manufacturer) public manufacture;
+    mapping(uint => Manufacture) public manufacture;
     mapping(uint => Doctor) public doctor;
     mapping(uint => Vaccine) public vaccine;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
-    mapping(uint => Customer) public customer;
+    mapping(uint => Beneficiary) public beneficiary;
     
-    uint256 public manufacturerCount = 0;
-    uint256 public distributerCount = 0;
+    uint256 public manufactureCount = 0;
+    uint256 public distributorCount = 0;
     uint256 public vaccineCenterCount = 0;
-    uint256 public customerCount = 0;
+    uint256 public beneficiaryCount = 0;
     
-    struct Manufacturer{
+    struct Manufacture{
         string licenceNO;
         string name;
         string location;
        
     }
     struct Vaccine{
+        string name;
+        
         uint manufacturID;
         uint distribututorID;
         uint vaccineceterID;
@@ -32,46 +34,49 @@ contract VaxiChain{
         
    }
     struct VaccineCenter{
-        string name;
         string licenceNO;
-        string address;
+        string name;       
+        
         string phone;
         string location;
 
    }
     struct Doctor{
-        string name;
         string licenceNO;
+        string name;     
         string phone;
    }    
-    struct Customer{
+    struct Beneficiary{
         string name;
+        string age;
+        string gender;
+        string adharID;
         uint doctorID;
-        string AdharID;
-        bool vaccinated;
         string vaccinated_date;
         string vaccine_center;
+        bool vaccinated;
+        
     }
+   
     
-    function AddDistributer(string memory licenceNo, string memory name, string memory location) public{
-        distributerCount++;
-        distributer[distributerCount] = Distributer(licenceNo, name, location);
-    }
-    
-    function AddManufacturer(string memory licenceNo, string memory name, string memory location) public{
-        manufacturerCount++;
-        manufacturer[manufacturerCount] = Manufacturer(licenceNo, name, location);
+    function AddManufacture(string memory licenceNo, string memory name, string memory location) public{
+        manufactureCount++;
+       manufacture[manufactureCount] = Manufacture(licenceNo, name, location);
    }
   
-    function AddVaccineCenter(string memory licenceNo, string memory name, string memory address, string memory phone  string memory location) public{
+   function AddDistributer(string memory licenceNo, string memory name, string memory location) public{
+        distributorCount++;
+        distributor[distributorCount] = Distributor(licenceNo, name, location);
+    }
+  
+    function AddVaccineCenter(string memory licenceNo, string memory name,  string memory phone,  string memory location) public{
         vaccineCenterCount++;
-        vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name,address, phone, location);
+        vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name, phone, location);
    }
         
-    function AddCustomer(string memory name, string memory  AdharID, string memory doctorID, string memory vaccinated_date  string memory vaccine_center) public{
-        customerCount++;
-        customer[customer] = Customer(name,doctorID,  AdharID, vaccinated_date,vaccine_center);
+    function AddBeneficiary(string memory name, string memory age, string memory gender, string memory  AdharID, string memory doctorID, string memory vaccinated_date,  string memory vaccine_center, string memory vaccinated ) public{
+        beneficiaryCount++;
+        beneficiary[beneficiary] = Beneficiary(name,age, gender,   AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
    }   
         
 }
-
