@@ -1,11 +1,13 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.6.2;
+
 contract VaxiChain{
     
     mapping(uint => Manufacture) public manufacture;
-    mapping(uint => Doctor) public doctor;
     mapping(uint => Vaccine) public vaccine;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
+    mapping(uint => Doctor) public doctor;
     mapping(uint => Beneficiary) public beneficiary;
     
     uint256 public manufactureCount = 0;
@@ -17,14 +19,18 @@ contract VaxiChain{
         string licenceNO;
         string name;
         string location;
+        string validity;
        
     }
     struct Vaccine{
+        uint lotnumber;
         string name;
+        string expdate;
+        uint price;
+        string templimit;
+        address owner;
+        bool purchased;
         
-        uint manufacturID;
-        uint distribututorID;
-        uint vaccineceterID;
         
    }
     struct Distributor{
@@ -36,7 +42,6 @@ contract VaxiChain{
     struct VaccineCenter{
         string licenceNO;
         string name;       
-        
         string phone;
         string location;
 
@@ -49,9 +54,8 @@ contract VaxiChain{
     struct Beneficiary{
         string name;
         string age;
-        string gender;
         string adharID;
-        uint doctorID;
+        string doctorID;
         string vaccinated_date;
         string vaccine_center;
         bool vaccinated;
@@ -59,7 +63,7 @@ contract VaxiChain{
     }
    
     
-    function AddManufacture(string memory licenceNo, string memory name, string memory location) public{
+    function AddManufacture(string memory licenceNo, string memory name, string memory location, string memory validity) public{
         manufactureCount++;
        manufacture[manufactureCount] = Manufacture(licenceNo, name, location);
    }
@@ -74,9 +78,9 @@ contract VaxiChain{
         vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name, phone, location);
    }
         
-    function AddBeneficiary(string memory name, string memory age, string memory gender, string memory  AdharID, string memory doctorID, string memory vaccinated_date,  string memory vaccine_center, string memory vaccinated ) public{
+    function AddBeneficiary(string memory name, string memory age, string memory  AdharID, string memory doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
         beneficiaryCount++;
-        beneficiary[beneficiary] = Beneficiary(name,age, gender,   AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
+        beneficiary[beneficiaryCount] = Beneficiary(name,age, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
    }   
         
 }
