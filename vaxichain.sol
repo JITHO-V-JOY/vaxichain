@@ -3,7 +3,7 @@ contract VaxiChain{
     
     mapping(uint => Manufacture) public manufacture;
     mapping(uint => Doctor) public doctor;
-    mapping(uint => Vaccine) public vaccine;
+    mapping(string => Vaccine) public vaccine;
     mapping(uint => Distributor) public distributor;
     mapping(uint => VaccineCenter) public vaccineCenter;
     mapping(uint => Beneficiary) public beneficiary;
@@ -12,6 +12,7 @@ contract VaxiChain{
     uint256 public distributorCount = 0;
     uint256 public vaccineCenterCount = 0;
     uint256 public beneficiaryCount = 0;
+    uint256 public doctorCount = 0;
     
     struct Manufacture{
         string licenceNO;
@@ -20,10 +21,10 @@ contract VaxiChain{
        
     }
     struct Vaccine{
+        string vaccine_id;
         string name;
-        
-        uint manufacturID;
-        uint distribututorID;
+        uint manufactureID;
+        uint distributorID;
         uint vaccineceterID;
         
    }
@@ -36,7 +37,6 @@ contract VaxiChain{
     struct VaccineCenter{
         string licenceNO;
         string name;       
-        
         string phone;
         string location;
 
@@ -48,7 +48,6 @@ contract VaxiChain{
    }    
     struct Beneficiary{
         string name;
-        string age;
         string gender;
         string adharID;
         uint doctorID;
@@ -74,9 +73,17 @@ contract VaxiChain{
         vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name, phone, location);
    }
         
-    function AddBeneficiary(string memory name, string memory age, string memory gender, string memory  AdharID, string memory doctorID, string memory vaccinated_date,  string memory vaccine_center, string memory vaccinated ) public{
+    function AddBeneficiary(string memory name, string memory gender, string memory  AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
         beneficiaryCount++;
-        beneficiary[beneficiary] = Beneficiary(name,age, gender,   AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
+        beneficiary[beneficiaryCount] = Beneficiary(name,gender, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
    }   
+   
+   function AddDoctor(string memory licenseNo, string memory name, string memory phone)public{
+       doctorCount++;
+       doctor[doctorCount] = Doctor(licenseNo, name, phone);
+   }
+   function ManuFacturedVaccine(string memory id, string memory name, uint manfacturer, uint dist, uint vaccine_center )public{
+       vaccine[id] = Vaccine(id, name, manfacturer, dist, vaccine_center);
+   }
         
 }
