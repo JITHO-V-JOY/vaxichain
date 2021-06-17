@@ -1,26 +1,33 @@
 pragma solidity ^0.6.2;
 contract VaxiChain{
     
-    mapping(uint => Manufacture) public manufacture;
-    mapping(uint => Doctor) public doctor;
+    mapping(string => Manufacture) public manufacture;
+    mapping(string => Doctor) public doctor;
     mapping(string => Vaccine) public vaccine;
-    mapping(uint => Distributor) public distributor;
-    mapping(uint => VaccineCenter) public vaccineCenter;
-    mapping(uint => Beneficiary) public beneficiary;
+    mapping(string => Distributor) public distributor;
+    mapping(string => VaccineCenter) public vaccineCenter;
+    mapping(string => Beneficiary) public beneficiary;
     mapping(string => Rules ) public rules;
     mapping(string => Violation ) public violation;
+    mapping(string => OnDemand) public onDemand;
+    mapping(uint => SideEffects) public sideEffects;
     
     uint256 public manufactureCount = 0;
     uint256 public distributorCount = 0;
     uint256 public vaccineCenterCount = 0;
     uint256 public beneficiaryCount = 0;
     uint256 public doctorCount = 0;
+    uint256 public doseCount = 0;
+    uint256 public sideEffectCount = 0;
     
     struct Manufacture{
         string licenceNO;
         string name;
         string location;
-       
+    }
+    
+    struct OnDemand{
+        uint256 doses;
     }
     
     struct Rules{
@@ -39,7 +46,7 @@ contract VaxiChain{
     
     struct SideEffects{
         string vaccine_id;
-        uint beneficiary_id;
+        string beneficiary_id;
         string sideEffect;
     }
     
@@ -59,8 +66,8 @@ contract VaxiChain{
         string licenceNO;
         string name;
         string location;
-        
    }
+   
     struct VaccineCenter{
         string licenceNO;
         string name;       
@@ -77,7 +84,7 @@ contract VaxiChain{
 
     struct Beneficiary{
         string name;
-        string email;
+        uint age;
         string gender;
         string adharID;
         uint doctorID;
@@ -88,32 +95,60 @@ contract VaxiChain{
    
     
     function AddManufacture(string memory licenceNo, string memory name, string memory location) public{
-        manufactureCount++;
-       manufacture[manufactureCount] = Manufacture(licenceNo, name, location);
+       manufactureCount++;
+       manufacture[licenceNo] = Manufacture(licenceNo, name, location);
    }
   
    function AddDistributer(string memory licenceNo, string memory name, string memory location) public{
         distributorCount++;
-        distributor[distributorCount] = Distributor(licenceNo, name, location);
+        distributor[licenceNo] = Distributor(licenceNo, name, location);
     }
   
     function AddVaccineCenter(string memory licenceNo, string memory name,  string memory phone,  string memory location) public{
         vaccineCenterCount++;
-        vaccineCenter[vaccineCenterCount] = VaccineCenter(licenceNo, name, phone, location);
+        vaccineCenter[licenceNo] = VaccineCenter(licenceNo, name, phone, location);
    }
         
-    function AddBeneficiary(string memory name, string memory email, string memory gender, string memory  AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
+    function AddBeneficiary(string memory name, uint age, string memory gender, string memory  AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
         beneficiaryCount++;
-        beneficiary[beneficiaryCount] = Beneficiary(name, email, gender, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
-   }   
+        beneficiary[AdharID] = Beneficiary(name, age, gender, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
+   }  
+   
+   function VaccineRegister(string memory vaccine_name) public{
+       onDemand[vaccine_name].doses += 1; 
+   }
    
    function AddDoctor(string memory licenseNo, string memory name, string memory phone)public{
        doctorCount++;
-       doctor[doctorCount] = Doctor(licenseNo, name, phone);
+       doctor[licenseNo] = Doctor(licenseNo, name, phone);
    }
    
-   function ManuFacturedVaccine(string memory id, string memory name, uint manfacturer, uint dist, uint vaccine_center )public{
-       vaccine[id] = Vaccine(id, name, manfacturer, dist, vaccine_center);
+   function ManuFacturedVaccine(string memory id, string memory name, uint vails, string memory exp_date, uint manfacturer, string memory arrived_date_distributor, uint distributor, string memory arrived_date_vaccine_center, uint vaccine_center )public{
+       vaccine[id] = Vaccine(id, name, vails, exp_date, manfacturer, arrived_date_distributor, distributor,  arrived_date_vaccine_center, vaccine_center);
+       onDemand[name] = OnDemand(0);
+   }
+   
+   function AddRules(string memory id, uint min_temp, uint max_temp, uint doses, string memory manufacture_date)public{
+        rules[id] = Rules(id, min_temp, max_temp, doses, manufacture_date);
+   }
+   
+   function AddViolation(string memory id)public{
+       violation[id] = Violation(id, false);
+   }
+   
+   function AddSideEffect(string memory id, string memory beneficiary_id, string memory txt)public{
+       sideEffectCount++;
+       sideEffects[sideEffectCount] = SideEffects(id, beneficiary_id, txt);
+   }
+   
+   function ArrivedDistributor(string memory id, string memory arrived_date, uint distributor_id)public{
+       vaccine[id].arrived_dateDistributor = arrived_date;
+       vaccine[id].distributorId = distributor_id;
+   }
+   
+   function ArrivedVaccineCenter(string memory id, string memory arrived_date, uint vaccine_center_id)public{
+       vaccine[id].arrived_dateVaccineCenter = arrived_date;
+       vaccine[id].vaccineCenterId = vaccine_center_id;
    }
    
    function tracking(string memory vaccine_id, uint temp)public{
@@ -123,7 +158,4 @@ contract VaxiChain{
            violation[vaccine_id].violated = false;
        }
    }
-   
-   
-        
 }
