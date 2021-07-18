@@ -1,4 +1,4 @@
-pragma solidity ^0.6.2;
+pragma solidity ^0.5.0;
 contract VaxiChain{
     
     mapping(string => Manufacture) public manufacture;
@@ -113,6 +113,13 @@ contract VaxiChain{
         beneficiaryCount++;
         beneficiary[AdharID] = Beneficiary(name, age, gender, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
    }  
+   
+   function Vaccinated(string memory AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center) public{
+       beneficiary[AdharID].doctorID = doctorID;
+       beneficiary[AdharID].vaccinated_date = vaccinated_date;
+       beneficiary[AdharID].vaccine_center = vaccine_center;
+       beneficiary[AdharID].vaccinated = true;
+   }
    
    function VaccineRegister(string memory vaccine_name) public{
        onDemand[vaccine_name].doses += 1; 
